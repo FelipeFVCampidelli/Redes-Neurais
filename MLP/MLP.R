@@ -1,6 +1,7 @@
 rm(list=ls())
+dev.off()
 
-MLPerceptron <- function(xin, yd, eta, tol, maxepocas, neuronios, xtest, ytest) {
+MLPerceptron <- function(xin, yd, eta, tol, maxepocas, neuronios, xtest, ytest, fold) {
   dimxin <- dim(xin)
   N <- dimxin[1]
   n <- dimxin[2]
@@ -61,7 +62,7 @@ MLPerceptron <- function(xin, yd, eta, tol, maxepocas, neuronios, xtest, ytest) 
     
     eepoca <- evec[nepocas]
     
-    cat("Erro[", nepocas, "]: ", evec[nepocas], "\n")
+    if(nepocas %% 100 == 0) cat("Erro[", fold, ",", nepocas,"]:", evec[nepocas], "\n")
   }
   retlist <- list(wo, wt, evec[1:nepocas], eTestvec[1:nepocas])
   return(retlist)
@@ -76,7 +77,7 @@ MLPredict <- function(xin, model) {
   for(i in 1:dim(X)[1]) {
     Z <- W1 %*% X[i,]
     A <- tanh(Z)
-    Yhat <- W2 %*% rbind(1,A)
+    Yhat <- tanh(W2 %*% rbind(1,A))
     Predict[i] <- Yhat
   }
   return(Predict)
