@@ -1,2 +1,2 @@
 # Redes-Neurais
-Implementação de algumas redes neurais
+Implementação das redes neurais vistas na disciplina de Redes Neurais Artificiais
